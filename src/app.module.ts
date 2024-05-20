@@ -8,12 +8,17 @@ import { AccessTokensController } from './tokens/tokens.controller'
 import { TokensService } from './tokens/tokens.service'
 import { DatabaseModule } from './tokens/database.module';
 import { ValidationMiddleware } from './middlewares/validation.middleware'
+import { ClientsModule, Transport } from '@nestjs/microservices';
+//import * as IORedis from 'ioredis';
+import { RedisModule } from './redis/redis.module';
+import { PubSubService } from './events/pub.service';
 
 @Module({
   imports: [
-      ConfigModule.forRoot(),
-      MongooseModule.forRoot(process.env.MONGODB_URI),
-      DatabaseModule
+    ConfigModule.forRoot(),
+    MongooseModule.forRoot(process.env.MONGODB_URI),
+    DatabaseModule,
+    RedisModule
   ],
   controllers: [
     AppController,
@@ -21,8 +26,9 @@ import { ValidationMiddleware } from './middlewares/validation.middleware'
   ],
   providers: [
     AppService,
-    TokensService
-  ],
+    TokensService,
+    PubSubService
+  ]
 })
 export class AppModule {
 

@@ -1,5 +1,3 @@
-// database.module.ts
-
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AccessTokenSchema } from './schemas/token.schema';

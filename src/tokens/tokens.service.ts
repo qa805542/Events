@@ -5,6 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { AccessToken } from './schemas/token.schema';
 import { JwtService } from './utils/jwt.service';
+import { PubSubService } from '../events/pub.service';
 
 @Injectable()
 export class TokensService {
@@ -44,6 +45,8 @@ export class TokensService {
             role,
             issuedAt: issuedAt.toISOString()
         });
+
+
 
         return await this.tokenModel.findOneAndUpdate({ userId, isDeleted: false },
             {
